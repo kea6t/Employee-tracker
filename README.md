@@ -48,6 +48,7 @@ Here's a link to the recorded video: https://watch.screencastify.com/v/TvLGwGzPK
 * Then type npm install inquirer@8.2.4
 * Then npm i express
 * Then npm i mysql2
+* npm install --save-dev jest for testing
 * Then npm install console.table --save
 * Then enter: "node server" to launch 🚀
 * Then open localhost:3003 to see app
