@@ -63,12 +63,12 @@ const init = () => {
 
 // Function to view all employees in the database.
 function viewEmployees() {
-    const sql = `SELECT employee.*, roles.title, roles.salary, department.name as department, manager.first_name, manager.last_name 
-                FROM employee
-                LEFT JOIN roles ON employee.role_id = roles.id
-                INNER JOIN department ON roles.department_id = department.id
-                LEFT JOIN employee manager ON employee.manager_id = manager.id
-                GROUP BY employee.id`;
+    const sql = `SELECT employee.*, roles.title, department.name AS department, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+    FROM employee
+    LEFT JOIN employee manager on manager.id = employee.manager_id
+    INNER JOIN roles ON roles.id = employee.role_id
+    INNER JOIN department ON department.id = roles.department_id
+    ORDER BY employee.id`;
     db.query(sql, (err, results) => {
         if(err){
             throw err;
@@ -79,12 +79,12 @@ function viewEmployees() {
 };
 
 function addEmployee() {
-    const sql = `SELECT employees.*, 
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.name AS department, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
                 FROM employee
-                LEFT JOIN role ON employee.role_id = roles.id
-                LEFT JOIN department ON roles.department_id = department.id
-                LEFT JOIN employee manager ON employee.manager_id = manager.id
-                GROUP BY employee.id ORDER BY count DESC`;
+                LEFT JOIN employee manager on manager.id = employee.manager_id
+                INNER JOIN roles ON roles.id = employee.role_id
+                INNER JOIN department ON department.id = roles.department_id
+                ORDER BY employee.id`;
     db.query(sql, (err, results) => {
         if(err){
             throw err;
@@ -95,12 +95,10 @@ function addEmployee() {
 };
 
 function viewEmpDepartment() {
-    const sql = `SELECT employees.*, 
-                FROM employee
-                LEFT JOIN role ON employee.role_id = roles.id
-                LEFT JOIN department ON roles.department_id = department.id
-                LEFT JOIN employee manager ON employee.manager_id = manager.id
-                GROUP BY employee.id ORDER BY count DESC`;
+    const sql = `SELECT name, 
+                FROM department
+                INNER JOIN department ON department.id = roles.department_id
+                ORDER BY employee.id`;
     db.query(sql, (err, results) => {
         if(err){
             throw err;
@@ -111,12 +109,9 @@ function viewEmpDepartment() {
 };
 
 function viewDepartments() {
-    const sql = `SELECT employees.*, 
-                FROM employee
-                LEFT JOIN role ON employee.role_id = roles.id
-                LEFT JOIN department ON roles.department_id = department.id
-                LEFT JOIN employee manager ON employee.manager_id = manager.id
-                GROUP BY employee.id ORDER BY count DESC`;
+    const sql = `SELECT *
+                FROM department
+                ORDER by id ASC`;
     db.query(sql, (err, results) => {
         if(err){
             throw err;
@@ -159,12 +154,10 @@ function deleteEmployee() {
 };
 
 function viewAllRoles() {
-    const sql = `SELECT employees.*, 
-                FROM employee
-                LEFT JOIN role ON employee.role_id = roles.id
-                LEFT JOIN department ON roles.department_id = department.id
-                LEFT JOIN employee manager ON employee.manager_id = manager.id
-                GROUP BY employee.id ORDER BY count DESC`;
+    const sql = `SELECT roles.id, roles.title, department.name AS department, roles.salary
+                FROM roles
+                INNER JOIN department ON roles.department_id = department.id
+                ORDER by id ASC`;
     db.query(sql, (err, results) => {
         if(err){
             throw err;
