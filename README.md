@@ -54,7 +54,7 @@ Here's a link to the recorded video: https://watch.screencastify.com/v/fXXAdpaFZ
 
 
 ## Usage
-* See the live version of the app here [Note Taker](https://saving-notes.herokuapp.com/)
+* See the video for usage examples [Employee Tracker](https://watch.screencastify.com/v/fXXAdpaFZztPtN9wI5cS) 
 
 ## Contributing
 :octocat: [kea6t](https://github.com/kea6t)
