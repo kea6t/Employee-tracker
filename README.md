@@ -43,15 +43,14 @@ Here's a link to the recorded video: https://watch.screencastify.com/v/TvLGwGzPK
 
 ## Installation
 * Open the command line terminal and go to the proper directory
-* Clone the git repo from :octocat: [kea6t](https://github.com/kea6t)
+* Clone the git repo from :octocat: [kea6t](https://github.com/kea6t/Employee-tracker)
 * Then type npm init to install dependencies
 * Then type npm install inquirer@8.2.4
 * Then npm i express
 * Then npm i mysql2
 * npm install --save-dev jest for testing
 * Then npm install console.table --save
-* Then enter: "node server" to launch 🚀
-* Then open localhost:3003 to see app
+* Then enter: "node index" to launch 🚀
 
 
 ## Usage

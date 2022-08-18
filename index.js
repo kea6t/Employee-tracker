@@ -15,10 +15,10 @@ const init = () => {
                 "View All Departments",
                 "Add Department",
                 'Delete Employee',
-                'Delete Roles',
-                'Delete Department',
+                // 'Delete Roles',
+                // 'Delete Department',
                 "View All Roles",
-                "Update Employee Role",
+                "Update Employee Managers",
                 "Add Role",
                 "Exit"]
         }
@@ -43,17 +43,17 @@ const init = () => {
                 case 'Delete Employee':
                     deleteEmployee();
                     break;
-                case 'Delete Roles':
-                    deleteRoles();
-                    break;
-                case 'Delete Employee':
-                    deleteDepartment();
-                    break;
+                // case 'Delete Roles':
+                //     deleteRoles();
+                //     break;
+                // case 'Delete Department':
+                //     deleteDepartment();
+                //     break;
                 case 'View All Roles':
                     viewAllRoles();
                     break;
-                case 'Update Employee Role':
-                    updateEmpRole();
+                case 'Update Employee Manager':
+                    updateEmpMgr();
                     break;
                 case 'Add Role':
                     addRole();
@@ -223,6 +223,7 @@ function addDepartment() {
         })
 };
 
+// I will work on it more when I have more time.
 // function to delete employees from the database.
 function deleteEmployee() {
     const delEmpSql = `SELECT * FROM employee`;
@@ -268,45 +269,46 @@ function deleteEmployee() {
     });
 };
 
-// function to delete employees from the database.
-function deleteRoles() {
-    const delRoleSql = `SELECT title AS name , id AS VALUE
-                        FROM roles
-                        ORDER BY name ASC`;
-    db.query(delRoleSql, (err, results) => {
-        if (err) {
-            throw err;
-        }
-        inquirer
-            .prompt([
-                {
-                    type: 'list',
-                    name: 'confirmRole',
-                    message: "Enter which role you'd like to delete! (Required)",
-                    choices: (results),
-                    validate: empInput => {
-                        if (empInput) {
-                            return true;
-                        } else {
-                            console.log("Please enter the roles to delete!");
-                            return false;
-                        }
-                    }
-                }
-            ])
-            .then((response) => {
-                const sql = `DELETE FROM roles`;
-                const params = [response.confirmRole];
-                db.query(sql, params, (err, results) => {
-                    if (err) {
-                        throw err;
-                    }
-                    console.table(results);
-                    init();
-                });
-            });
-    });
-};
+// // The function works however, it messes up the table so I commented it out for now.
+// // function to delete employees from the database.
+// function deleteRoles() {
+//     const delRoleSql = `SELECT title AS name , id AS VALUE
+//                         FROM roles
+//                         ORDER BY name ASC`;
+//     db.query(delRoleSql, (err, results) => {
+//         if (err) {
+//             throw err;
+//         }
+//         inquirer
+//             .prompt([
+//                 {
+//                     type: 'list',
+//                     name: 'confirmRole',
+//                     message: "Enter which role you'd like to delete! (Required)",
+//                     choices: (results),
+//                     validate: empInput => {
+//                         if (empInput) {
+//                             return true;
+//                         } else {
+//                             console.log("Please enter the roles to delete!");
+//                             return false;
+//                         }
+//                     }
+//                 }
+//             ])
+//             .then((response) => {
+//                 const sql = `DELETE FROM roles`;
+//                 const params = [response.confirmRole];
+//                 db.query(sql, params, (err, results) => {
+//                     if (err) {
+//                         throw err;
+//                     }
+//                     console.table(results);
+//                     init();
+//                 });
+//             });
+//     });
+// };
 
 // function to view all roles in the database
 function viewAllRoles() {
@@ -323,7 +325,7 @@ function viewAllRoles() {
     });
 };
 
-function updateEmpRole() {
+function updateEmpMgr() {
     const sql = `SELECT employees.*, 
                 FROM employee
                 LEFT JOIN role ON employee.role_id = roles.id
