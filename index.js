@@ -3,7 +3,7 @@ const db = require('./db/connection');
 const cTable = require('console.table');
 
 
-// 
+// function to initialize the prompt
 const init = () => {
     inquirer.prompt([
         {
