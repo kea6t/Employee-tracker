@@ -23,6 +23,7 @@ const init = () => {
                 "Exit"]
         }
     ])
+    // Using switch statements rather than if/else for readable purposes.
         .then((response) => {
             console.log(response);
             let userChoice = response.confirm;
@@ -126,6 +127,7 @@ function addEmployee() {
                     type: 'list',
                     name: 'confirmRole',
                     message: "Enter Employees's role! (Required)",
+                    // results will map the roles table and users can select the title and role id from the table.
                     choices: results.map(confirmRole => {
                         return {
                             name: confirmRole.title,
@@ -145,6 +147,7 @@ function addEmployee() {
                     type: 'number',
                     name: 'employeeManager',
                     message: "Please enter the managers id? (Required)",
+                    // results will map the employees table and users can select the employee/manager id from the table.
                     choices: results.map(employeeManager => {
                         return {
                             value: employeeManager.manager_id
